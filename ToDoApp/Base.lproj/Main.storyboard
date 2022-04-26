@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--To Do List View Controller-->
+        <!--Todoye-->
         <scene sceneID="DIO-kI-09Y">
             <objects>
                 <tableViewController id="NCF-D9-HxV" customClass="ToDoListViewController" customModule="ToDoApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -30,7 +30,7 @@
                             <outlet property="delegate" destination="NCF-D9-HxV" id="9q8-8l-pWx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="guC-yR-aFX"/>
+                    <navigationItem key="navigationItem" title="Todoye" id="guC-yR-aFX"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sb4-39-OBY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,6 +44,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GM0-f9-sP3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.30196079609999998" green="0.66666668650000005" blue="0.97254908080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
