@@ -9,17 +9,32 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    var itemArray = ["a", "b", "C", "d", "e", "f","g", "h", "i","j", "k", "l","m", "n", "o","p", "q", "r","s", "t", "u","v", "w", "x","y", "z", "cc"]
+    var itemArray = [Item]()
     
     let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let newItem = Item()
+        newItem.title = "Find Dory"
+        itemArray.append(newItem)
         
-        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
-            itemArray = items
-        }
+        let newItem2 = Item()
+        newItem2.title = "Find miky"
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item()
+        newItem3.title = "Find Mouse"
+        itemArray.append(newItem3)
+        
+        
+        
+    
+        
+//        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+//            itemArray = items
+//        }
     }
 
     //MARK: - Add new Items
@@ -30,7 +45,10 @@ class ToDoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             //what happens when user click on "Add Item"
-            self.itemArray.append(textField.text!)
+            
+            let newItem = Item()
+            newItem.title = textField.text!
+            self.itemArray.append(newItem)
             
             self.defaults.set(self.itemArray, forKey: "ToDoListArray")
             
@@ -39,15 +57,16 @@ class ToDoListViewController: UITableViewController {
         //Show the alert dialog
         present(alert, animated: true, completion: nil)
         
-        //add action to a alert dialog
-        alert.addAction(action)
-        
         //add textfield to a alert dialog
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Add new Task"
             textField = alertTextField
-            
         }
+        
+        //add action to a alert dialog
+        alert.addAction(action)
+        
+        
     }
     
     //MARK: - Tableview datasource method
@@ -58,9 +77,19 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("Cell Called")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
+        
+        
+        
+        if  itemArray[indexPath.row].done == true {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
         
         return cell
     }
@@ -69,13 +98,23 @@ class ToDoListViewController: UITableViewController {
     //MARK: - UITableViewDelegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
+        if itemArray[indexPath.row].done == false {
+            itemArray[indexPath.row].done = true
+        } else {
+            itemArray[indexPath.row].done = false
+        }
+        
+        tableView.reloadData()
+        
+//        if itemArray[indexPath.row].done == true {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+//        } else {
+//            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+//        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
     }
 
 }
