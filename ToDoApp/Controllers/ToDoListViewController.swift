@@ -83,13 +83,13 @@ class ToDoListViewController: UITableViewController {
         
         cell.textLabel?.text = itemArray[indexPath.row].title
         
+        cell.accessoryType = itemArray[indexPath.row].done ? .checkmark : .none
         
-        
-        if  itemArray[indexPath.row].done == true {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+//        if  itemArray[indexPath.row].done == true {
+//            cell.accessoryType = .checkmark
+//        } else {
+//            cell.accessoryType = .none
+//        }
         
         return cell
     }
@@ -98,12 +98,13 @@ class ToDoListViewController: UITableViewController {
     //MARK: - UITableViewDelegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        if itemArray[indexPath.row].done == false {
-            itemArray[indexPath.row].done = true
-        } else {
-            itemArray[indexPath.row].done = false
-        }
+//        if itemArray[indexPath.row].done == false {
+//            itemArray[indexPath.row].done = true
+//        } else {
+//            itemArray[indexPath.row].done = false
+//        }
         
         tableView.reloadData()
         
