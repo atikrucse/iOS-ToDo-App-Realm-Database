@@ -9,27 +9,29 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
     
-    var itemArray = [""]
-    var textField = UITextField()
+    var itemArray = ["a", "b", "C", "d", "e", "f","g", "h", "i","j", "k", "l","m", "n", "o","p", "q", "r","s", "t", "u","v", "w", "x","y", "z", "cc"]
+    
     let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
             itemArray = items
         }
-        tableView.reloadData()
     }
 
     //MARK: - Add new Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
+        var textField = UITextField()
+        
         let alert = UIAlertController(title: "Add new ToDo Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { action in
             //what happens when user click on "Add Item"
-
-            self.itemArray.append(self.textField.text!)
+            self.itemArray.append(textField.text!)
+            
             self.defaults.set(self.itemArray, forKey: "ToDoListArray")
             
             self.tableView.reloadData()
@@ -43,7 +45,7 @@ class ToDoListViewController: UITableViewController {
         //add textfield to a alert dialog
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Add new Task"
-            self.textField = alertTextField
+            textField = alertTextField
             
         }
     }
@@ -68,6 +70,7 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
         } else {
