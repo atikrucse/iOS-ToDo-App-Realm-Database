@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoListViewController: UITableViewController {
     
@@ -22,7 +23,7 @@ class ToDoListViewController: UITableViewController {
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         //Retriving data from dataFilePath
-        //loadData()
+        loadData()
         
     }
 
@@ -80,7 +81,12 @@ class ToDoListViewController: UITableViewController {
     //MARK: - UITableViewDelegate method
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        //Deleting Items
+        contex.delete(itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
+        
+        
+        //itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         
         
@@ -102,17 +108,15 @@ class ToDoListViewController: UITableViewController {
     }
     
     //Function for Loading data from dataFilePath
-//    func loadData() {
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//
-//            let decoder = PropertyListDecoder()
-//
-//            do {
-//                itemArray = try decoder.decode([Item].self, from: data)
-//            } catch {
-//                print("Error in retriving data \(error)")
-//            }
-//        }
-//    }
+    func loadData() {
+        
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+
+            do {
+                itemArray = try contex.fetch(request)
+            } catch {
+                print("Error in retriving data \(error)")
+            }
+    }
 }
 
